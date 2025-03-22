@@ -32,7 +32,7 @@ class AlertButton extends StatefulWidget {
   final TextStyle? subLabelTextStyle;
 
   const AlertButton({
-    Key? key,
+    super.key,
     this.size = 200,
     this.waveColors = const [Colors.red, Colors.orange],
     this.waveCount = 3,
@@ -42,7 +42,7 @@ class AlertButton extends StatefulWidget {
     this.subLabel = 'Press 2 seconds',
     this.labelTextStyle,
     this.subLabelTextStyle,
-  }) : super(key: key);
+  });
 
   @override
   State<AlertButton> createState() => _AlertButtonState();
