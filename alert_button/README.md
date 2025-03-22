@@ -10,30 +10,25 @@ For general information about developing packages, see the Dart guide for
 and the Flutter guide for
 [developing packages and plugins](https://flutter.dev/to/develop-packages).
 -->
+# Alert Button
 
-TODO: Put a short description of the package here that helps potential users
-know whether this package might be useful for them.
+**Alert Button** is a Flutter package that provides a customizable alert button with animated wave effects.
 
 ## Features
 
-TODO: List what your package can do. Maybe include images, gifs, or videos.
+- Customizable button size.
+- Customizable wave colors and gradients.
+- Adjustable number of animated waves.
+- Configurable durations for wave and press animations.
+- Customizable main and sub labels with text styling.
 
-## Getting started
+## Installation
 
-TODO: List prerequisites and provide or point to information on how to
-start using the package.
+1. Add the package to your project's `pubspec.yaml` file:
 
-## Usage
-
-TODO: Include short and useful examples for package users. Add longer examples
-to `/example` folder.
-
-```dart
-const like = 'sample';
-```
-
-## Additional information
-
-TODO: Tell users more about the package: where to find more information, how to
-contribute to the package, how to file issues, what response they can expect
-from the package authors, and more.
+```yaml
+dependencies:
+  alert_button:
+    git:
+      url: https://github.com/your_username/alert_button.git
+      ref: main
