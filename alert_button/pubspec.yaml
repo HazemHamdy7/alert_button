@@ -1,5 +1,5 @@
 name: alert_button
-description: "A new Flutter package project."
+description: A Flutter package that provides a customizable alert button with animated wave effects.
 version: 0.0.1
 homepage: https://github.com/HazemHamdy7/alert_button
 
