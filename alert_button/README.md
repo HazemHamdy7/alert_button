@@ -30,5 +30,5 @@ and the Flutter guide for
 dependencies:
   alert_button:
     git:
-      url: https://github.com/your_username/alert_button.git
+      url: https://github.com/HazemHamdy7/alert_button
       ref: main

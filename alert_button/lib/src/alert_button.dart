@@ -19,6 +19,9 @@ class AlertButton extends StatefulWidget {
   /// مدة أنيميشن الضغط
   final Duration pressDuration;
 
+  /// مدة استمرار الأنيميشن بعد الضغط
+  final Duration activeDuration;
+
   /// نص التسمية الرئيسي
   final String label;
 
@@ -32,17 +35,18 @@ class AlertButton extends StatefulWidget {
   final TextStyle? subLabelTextStyle;
 
   const AlertButton({
-    super.key,
+    Key? key,
     this.size = 200,
     this.waveColors = const [Colors.red, Colors.orange],
     this.waveCount = 3,
     this.waveDuration = const Duration(seconds: 3),
     this.pressDuration = const Duration(milliseconds: 200),
+    this.activeDuration = const Duration(seconds: 2), // مدة الأنيميشن بعد الضغط
     this.label = 'SOS',
-    this.subLabel = 'Press 2 seconds',
+    this.subLabel = 'Press for a while',
     this.labelTextStyle,
     this.subLabelTextStyle,
-  });
+  }) : super(key: key);
 
   @override
   State<AlertButton> createState() => _AlertButtonState();
@@ -83,8 +87,8 @@ class _AlertButtonState extends State<AlertButton>
     // بدء أنيميشن الموجات
     _waveController.forward();
 
-    // إيقاف الأنيميشن بعد 2 ثانية
-    Future.delayed(const Duration(seconds: 2), () {
+    // استمرار الأنيميشن لمدة activeDuration المحددة
+    Future.delayed(widget.activeDuration, () {
       if (mounted) {
         setState(() => _isPressed = false);
         _pressController.reverse();
@@ -129,7 +133,7 @@ class _AlertButtonState extends State<AlertButton>
               },
             );
           }),
-          // زر SOS
+          // زر التنبيه
           GestureDetector(
             onLongPress: _onLongPressStart,
             child: AnimatedBuilder(
@@ -160,10 +164,9 @@ class _AlertButtonState extends State<AlertButton>
                         decoration: BoxDecoration(
                           shape: BoxShape.circle,
                           gradient: LinearGradient(
-                            colors:
-                                _isPressed
-                                    ? widget.waveColors
-                                    : widget.waveColors.reversed.toList(),
+                            colors: _isPressed
+                                ? widget.waveColors
+                                : widget.waveColors.reversed.toList(),
                           ),
                         ),
                         child: Column(
@@ -171,28 +174,20 @@ class _AlertButtonState extends State<AlertButton>
                           children: [
                             Text(
                               widget.label,
-                              style:
-                                  widget.labelTextStyle ??
+                              style: widget.labelTextStyle ??
                                   TextStyle(
                                     color: Colors.white,
-                                    fontSize: getResponsiveFontSize(
-                                      context,
-                                      fontSize: 32,
-                                    ),
+                                    fontSize: 32,
                                     fontWeight: FontWeight.bold,
                                   ),
                             ),
                             Text(
                               widget.subLabel,
-                              style:
-                                  widget.subLabelTextStyle ??
+                              style: widget.subLabelTextStyle ??
                                   TextStyle(
                                     fontWeight: FontWeight.bold,
                                     color: Colors.white,
-                                    fontSize: getResponsiveFontSize(
-                                      context,
-                                      fontSize: 11,
-                                    ),
+                                    fontSize: 11,
                                   ),
                             ),
                           ],
@@ -208,10 +203,4 @@ class _AlertButtonState extends State<AlertButton>
       ),
     );
   }
-}
-
-/// مثال على دالة getResponsiveFontSize (يمكن تعديلها أو نقلها إلى حزمة منفصلة)
-double getResponsiveFontSize(BuildContext context, {required double fontSize}) {
-  // هنا يمكنك استخدام منطق Responsive كما تريد، مثلاً:
-  return fontSize * MediaQuery.of(context).textScaleFactor;
 }
